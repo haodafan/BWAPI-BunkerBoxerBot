@@ -52,5 +52,6 @@ public:
 
 	// Extra Helper Functions 
 	void ProductionManager::produceUnitFromBuilding(BWAPI::UnitType unit, BWAPI::Unit building);
+	const BWAPI::Unit * ProductionManager::conscript();
 };
 

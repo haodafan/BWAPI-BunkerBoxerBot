@@ -271,3 +271,18 @@ void ProductionManager::produceUnitFromBuilding(BWAPI::UnitType unit, BWAPI::Uni
 		} // closure: insufficient supply
 	} // closure: failed to train idle unit
 }
+
+const BWAPI::Unit * ProductionManager::conscript()
+{
+	if (allWorkers.size() > 0)
+	{
+		const BWAPI::Unit * conscriptedWorker = allWorkers[0];
+		BWAPI::Broodwar->sendText("Production Manager Report: Worker has been pressed into service!");
+		allWorkers.erase(begin(allWorkers));
+		return conscriptedWorker;
+	}
+	else
+	{
+		BWAPI::Broodwar->sendText("Production Manager Report: No workers available to conscript!");
+	}
+}

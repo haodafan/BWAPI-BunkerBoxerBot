@@ -1,0 +1,42 @@
+﻿C:\Program Files (x86)\Microsoft Visual Studio\2017\Community\Common7\IDE\VC\VCTargets\Platforms\Win32\PlatformToolsets\v141_xp\Toolset.targets(39,5): warning MSB8051: Support for targeting Windows XP is deprecated and will not be present in future releases of Visual Studio. Please see https://go.microsoft.com/fwlink/?linkid=2023588 for more information.
+  BuildOrderQueue.cpp
+  BunkerBoxerModule.cpp
+  Common.cpp
+  Dll.cpp
+  ProductionManager.cpp
+  StrictBuildOrder.cpp
+c:\bwapi-sc\bwapi\release440\haodabots\bunkerboxermodule\bunkerboxermodule\strictbuildorder.cpp(22): warning C4018: '<': signed/unsigned mismatch
+c:\bwapi-sc\bwapi\release440\haodabots\bunkerboxermodule\bunkerboxermodule\strictbuildorder.cpp(57): warning C4018: '<': signed/unsigned mismatch
+c:\bwapi-sc\bwapi\release440\haodabots\bunkerboxermodule\bunkerboxermodule\strictbuildorder.cpp(69): warning C4018: '<': signed/unsigned mismatch
+  BWAPI.lib(Position.obj) : MSIL .netmodule or module compiled with /GL found; restarting link with /LTCG; add /LTCG to the link command line to improve linker performance
+BWAPI.lib(Position.obj) : error LNK2038: mismatch detected for '_ITERATOR_DEBUG_LEVEL': value '0' doesn't match value '2' in BunkerBoxerModule.obj
+BWAPI.lib(Position.obj) : error LNK2038: mismatch detected for 'RuntimeLibrary': value 'MD_DynamicRelease' doesn't match value 'MDd_DynamicDebug' in BunkerBoxerModule.obj
+BWAPI.lib(UnitType.obj) : error LNK2038: mismatch detected for '_ITERATOR_DEBUG_LEVEL': value '0' doesn't match value '2' in BunkerBoxerModule.obj
+BWAPI.lib(UnitType.obj) : error LNK2038: mismatch detected for 'RuntimeLibrary': value 'MD_DynamicRelease' doesn't match value 'MDd_DynamicDebug' in BunkerBoxerModule.obj
+BWAPI.lib(Game.obj) : error LNK2038: mismatch detected for '_ITERATOR_DEBUG_LEVEL': value '0' doesn't match value '2' in BunkerBoxerModule.obj
+BWAPI.lib(Game.obj) : error LNK2038: mismatch detected for 'RuntimeLibrary': value 'MD_DynamicRelease' doesn't match value 'MDd_DynamicDebug' in BunkerBoxerModule.obj
+BWAPI.lib(Race.obj) : error LNK2038: mismatch detected for '_ITERATOR_DEBUG_LEVEL': value '0' doesn't match value '2' in BunkerBoxerModule.obj
+BWAPI.lib(Race.obj) : error LNK2038: mismatch detected for 'RuntimeLibrary': value 'MD_DynamicRelease' doesn't match value 'MDd_DynamicDebug' in BunkerBoxerModule.obj
+BWAPI.lib(AIModule.obj) : error LNK2038: mismatch detected for '_ITERATOR_DEBUG_LEVEL': value '0' doesn't match value '2' in BunkerBoxerModule.obj
+BWAPI.lib(AIModule.obj) : error LNK2038: mismatch detected for 'RuntimeLibrary': value 'MD_DynamicRelease' doesn't match value 'MDd_DynamicDebug' in BunkerBoxerModule.obj
+BWAPI.lib(UpgradeType.obj) : error LNK2038: mismatch detected for '_ITERATOR_DEBUG_LEVEL': value '0' doesn't match value '2' in BunkerBoxerModule.obj
+BWAPI.lib(UpgradeType.obj) : error LNK2038: mismatch detected for 'RuntimeLibrary': value 'MD_DynamicRelease' doesn't match value 'MDd_DynamicDebug' in BunkerBoxerModule.obj
+BWAPI.lib(Unit.obj) : error LNK2038: mismatch detected for '_ITERATOR_DEBUG_LEVEL': value '0' doesn't match value '2' in BunkerBoxerModule.obj
+BWAPI.lib(Unit.obj) : error LNK2038: mismatch detected for 'RuntimeLibrary': value 'MD_DynamicRelease' doesn't match value 'MDd_DynamicDebug' in BunkerBoxerModule.obj
+BWAPI.lib(Player.obj) : error LNK2038: mismatch detected for '_ITERATOR_DEBUG_LEVEL': value '0' doesn't match value '2' in BunkerBoxerModule.obj
+BWAPI.lib(Player.obj) : error LNK2038: mismatch detected for 'RuntimeLibrary': value 'MD_DynamicRelease' doesn't match value 'MDd_DynamicDebug' in BunkerBoxerModule.obj
+BWAPI.lib(TechType.obj) : error LNK2038: mismatch detected for '_ITERATOR_DEBUG_LEVEL': value '0' doesn't match value '2' in BunkerBoxerModule.obj
+BWAPI.lib(TechType.obj) : error LNK2038: mismatch detected for 'RuntimeLibrary': value 'MD_DynamicRelease' doesn't match value 'MDd_DynamicDebug' in BunkerBoxerModule.obj
+BWAPI.lib(Filters.obj) : error LNK2038: mismatch detected for '_ITERATOR_DEBUG_LEVEL': value '0' doesn't match value '2' in BunkerBoxerModule.obj
+BWAPI.lib(Filters.obj) : error LNK2038: mismatch detected for 'RuntimeLibrary': value 'MD_DynamicRelease' doesn't match value 'MDd_DynamicDebug' in BunkerBoxerModule.obj
+BWAPI.lib(Error.obj) : error LNK2038: mismatch detected for '_ITERATOR_DEBUG_LEVEL': value '0' doesn't match value '2' in BunkerBoxerModule.obj
+BWAPI.lib(Error.obj) : error LNK2038: mismatch detected for 'RuntimeLibrary': value 'MD_DynamicRelease' doesn't match value 'MDd_DynamicDebug' in BunkerBoxerModule.obj
+BWAPI.lib(Unitset.obj) : error LNK2038: mismatch detected for '_ITERATOR_DEBUG_LEVEL': value '0' doesn't match value '2' in BunkerBoxerModule.obj
+BWAPI.lib(Unitset.obj) : error LNK2038: mismatch detected for 'RuntimeLibrary': value 'MD_DynamicRelease' doesn't match value 'MDd_DynamicDebug' in BunkerBoxerModule.obj
+BWAPI.lib(WeaponType.obj) : error LNK2038: mismatch detected for '_ITERATOR_DEBUG_LEVEL': value '0' doesn't match value '2' in BunkerBoxerModule.obj
+BWAPI.lib(WeaponType.obj) : error LNK2038: mismatch detected for 'RuntimeLibrary': value 'MD_DynamicRelease' doesn't match value 'MDd_DynamicDebug' in BunkerBoxerModule.obj
+BWAPI.lib(UnitCommand.obj) : error LNK2038: mismatch detected for '_ITERATOR_DEBUG_LEVEL': value '0' doesn't match value '2' in BunkerBoxerModule.obj
+BWAPI.lib(UnitCommand.obj) : error LNK2038: mismatch detected for 'RuntimeLibrary': value 'MD_DynamicRelease' doesn't match value 'MDd_DynamicDebug' in BunkerBoxerModule.obj
+     Creating library Debug\BunkerBoxerModule.lib and object Debug\BunkerBoxerModule.exp
+LINK : warning LNK4098: defaultlib 'MSVCRT' conflicts with use of other libs; use /NODEFAULTLIB:library
+C:\BWAPI-SC\bwapi\release440\HaodaBots\Debug\BunkerBoxerModule.dll : fatal error LNK1319: 28 mismatches detected

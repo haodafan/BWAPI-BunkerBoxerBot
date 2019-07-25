@@ -52,6 +52,11 @@ void BunkerBoxerModule::onStart()
   productionManager = ProductionManager();
   productionManager.initialize();
 
+  intel = Intelligence(); 
+  intel.initialize(); 
+
+  recon = Recon();
+
   // Add the 4 SCVs to the productionManager's workers, add the command center to the productionManager's buildings
   
 	// At the start of the match, let's build ONE drone! 
@@ -113,6 +118,9 @@ void BunkerBoxerModule::onFrame()
     return;
 
   productionManager.update();
+
+  // Simple scouting mission 
+
 
 }
 

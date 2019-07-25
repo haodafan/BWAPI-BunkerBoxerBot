@@ -1,8 +1,8 @@
 #pragma once
 
 #include "Common.h"
-#include "BWEM-1.4.1/src/bwem.h"
-//#include "BWTA.h"
+//#include "BWEM-1.4.1/src/bwem.h"
+#include "BWTA.h"
 
 
 // The Intelligence Class manages information. 
@@ -11,7 +11,7 @@
 //    - Enemy natural location
 
 // Unlike the InformationManager class from UAlbertaBot, this class is extremely simplified 
-// and will make use of BWEM (http://bwem.sourceforge.net/index.html) instead of BWTA
+// We will make heavy use of the functions provided by the BWTA2 Library 
 
 class Map;
 
@@ -47,7 +47,7 @@ class Intelligence
 	bool enemyBaseScouted;
 	bool enemyNaturalScouted;
 	int scoutTimer; // Number of frames since last 'scouting'
-	const int scoutTimerMaximum = 1000; // not implemented
+	//const int scoutTimerMaximum = 1000; // not implemented
 
 	// Stored Enemy information 
 	std::vector<BWAPI::Unit> knownEnemyUnits;
@@ -62,16 +62,16 @@ public:
 	void Intelligence::initialize();
 	//BWTA::Region * Intelligence::getEnemyBaseLocation();
 	//BWTA::Region * Intelligence::getEnemyNaturalLocation();
-	const std::vector<BWAPI::TilePosition> & getStartingLocations() const;
+	//const std::vector<BWAPI::TilePosition> & getStartingLocations() const;
 	const BWAPI::TilePosition & getEnemyStartLocation() const;
 	const BWAPI::TilePosition & getEnemyNaturalLocation() const;
 
 	bool isEnemyScouted();
 	bool isEnemyNaturalScouted();
 
-	BWEM::Area getClosestArea(const BWAPI::TilePosition tp) const;
-	bool isAreaOccupied(BWEM::Area area);
-	bool doesAreaContainBase(BWEM::Area area);
+	//BWEM::Area getClosestArea(const BWAPI::TilePosition tp) const;
+	//bool isAreaOccupied(BWEM::Area area);
+	//bool doesAreaContainBase(BWEM::Area area);
 
 	// Information Updating Functions 
 	void addEnemyArea(BWAPI::TilePosition tp, BaseType b);

@@ -122,6 +122,7 @@
     <ClCompile Include="Dll.cpp" />
     <ClCompile Include="Intelligence.cpp" />
     <ClCompile Include="ProductionManager.cpp" />
+    <ClCompile Include="Recon.cpp" />
     <ClCompile Include="StrictBuildOrder.cpp" />
   </ItemGroup>
   <ItemGroup>
@@ -150,6 +151,7 @@
     <ClInclude Include="Intelligence.h" />
     <ClInclude Include="MetaType.h" />
     <ClInclude Include="ProductionManager.h" />
+    <ClInclude Include="Recon.h" />
     <ClInclude Include="StrictBuildOrder.h" />
   </ItemGroup>
   <ItemGroup>

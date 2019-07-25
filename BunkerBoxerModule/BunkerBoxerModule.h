@@ -2,6 +2,8 @@
 #include <BWAPI.h>
 
 #include "ProductionManager.h"
+#include "Intelligence.h"
+#include "Recon.h"
 
 // Remember not to use "Broodwar" in any global class constructor!
 
@@ -9,6 +11,9 @@ class BunkerBoxerModule : public BWAPI::AIModule
 {
 	bool pool;
 	ProductionManager productionManager;
+	Intelligence intel; 
+	Recon recon;
+
 public:
   // Virtual functions for callbacks, leave these as they are.
   virtual void onStart();

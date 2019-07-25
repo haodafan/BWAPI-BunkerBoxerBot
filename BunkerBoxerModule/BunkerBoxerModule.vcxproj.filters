@@ -93,6 +93,9 @@
     <ClCompile Include="BWEM-1.4.1\EasyBMP_1.06\EasyBMP.cpp">
       <Filter>BWEM-1.4.1</Filter>
     </ClCompile>
+    <ClCompile Include="Recon.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="BuildOrderQueue.h">
@@ -172,6 +175,9 @@
     </ClInclude>
     <ClInclude Include="BWEM-1.4.1\EasyBMP_1.06\EasyBMP.h">
       <Filter>BWEM-1.4.1</Filter>
+    </ClInclude>
+    <ClInclude Include="Recon.h">
+      <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

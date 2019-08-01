@@ -7,9 +7,15 @@
 
 // Remember not to use "Broodwar" in any global class constructor!
 
+enum {
+	EarlyGame = 0,
+	PushOut = 1, 
+	AttackNatural = 2,
+	AttackMain = 3
+};
+
 class BunkerBoxerModule : public BWAPI::AIModule
 {
-	bool pool;
 	ProductionManager productionManager;
 	Intelligence intel; 
 	Recon recon;

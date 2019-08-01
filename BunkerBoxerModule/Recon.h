@@ -33,6 +33,8 @@ public:
 	void setScoutingMission(std::vector<BWAPI::TilePosition> locations);
 	void beginScouting(BWAPI::Unit designatedScout);
 	BWAPI::Unit endScouting();
+	bool isScouting();
+	bool hasDesignatedUnits();
 	void update();
 
 	Recon();

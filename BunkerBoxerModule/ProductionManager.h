@@ -9,12 +9,12 @@
 class ProductionManager
 {
 	// Production variables
-	std::vector<const BWAPI::Unit*> productionBuildings; 
+	std::vector<BWAPI::Unit> productionBuildings; 
 
 	// Worker Manager Variables
 	// Currently, since our bot does not manage expansions or vespene gas, we will implement a super basic worker manager
 	// directly into our production manager. 
-	std::vector<const BWAPI::Unit*> allWorkers; 
+	std::vector<BWAPI::Unit> allWorkers; 
 
 	// Build Order Variables 
 	bool buildOrderActive; 
@@ -35,11 +35,11 @@ public:
 
 	void update(); 
 
-	void ProductionManager::addBuilding(const BWAPI::Unit* building);
-	void ProductionManager::removeBuilding(const BWAPI::Unit* building);
+	void ProductionManager::addBuilding(BWAPI::Unit building);
+	void ProductionManager::removeBuilding(BWAPI::Unit building);
 
-	void ProductionManager::addWorker(const BWAPI::Unit* worker);
-	void ProductionManager::removeWorker(const BWAPI::Unit* worker);
+	void ProductionManager::addWorker(BWAPI::Unit worker);
+	void ProductionManager::removeWorker(BWAPI::Unit worker);
 
 	void ProductionManager::deactivateBuildOrder();
 
@@ -48,10 +48,10 @@ public:
 
 	void ProductionManager::changePassiveProduction(BWAPI::UnitType u);
 
-	const BWAPI::Unit * ProductionManager::getBuilder();
+	BWAPI::Unit ProductionManager::getBuilder();
 
 	// Extra Helper Functions 
 	void ProductionManager::produceUnitFromBuilding(BWAPI::UnitType unit, BWAPI::Unit building);
-	const BWAPI::Unit * ProductionManager::conscript();
+	BWAPI::Unit ProductionManager::conscript();
 };
 

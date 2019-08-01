@@ -1,8 +1,8 @@
 #pragma once
 
 #include "Common.h"
-//#include "BWEM-1.4.1/src/bwem.h"
-#include "BWTA.h"
+#include "BWEM-1.4.1/src/bwem.h"
+//#include "BWTA.h"
 
 
 // The Intelligence Class manages information. 
@@ -21,14 +21,15 @@ enum BaseType {
 	Expansion = 2,
 };
 
-struct EnemyArea
+struct EnemyBase
 {
 	//BWEM::Area area; 
 	BWAPI::TilePosition center;
 	BaseType type;
 	std::vector<BWAPI::Unit> buildings;
+	bool active;
 
-	EnemyArea() = default;
+	EnemyBase() = default;
 };
 
 class Intelligence
@@ -47,11 +48,10 @@ class Intelligence
 	bool enemyBaseScouted;
 	bool enemyNaturalScouted;
 	int scoutTimer; // Number of frames since last 'scouting'
-	//const int scoutTimerMaximum = 1000; // not implemented
 
 	// Stored Enemy information 
 	std::vector<BWAPI::Unit> knownEnemyUnits;
-	std::vector<EnemyArea> knownEnemyAreas;
+	std::vector<EnemyBase> knownEnemyBases;
 
 	// Functions 
 
@@ -60,24 +60,21 @@ public:
 	~Intelligence();
 
 	void Intelligence::initialize();
-	//BWTA::Region * Intelligence::getEnemyBaseLocation();
-	//BWTA::Region * Intelligence::getEnemyNaturalLocation();
-	//const std::vector<BWAPI::TilePosition> & getStartingLocations() const;
-	const BWAPI::TilePosition & getEnemyStartLocation() const;
-	const BWAPI::TilePosition & getEnemyNaturalLocation() const;
 
 	bool isEnemyScouted();
 	bool isEnemyNaturalScouted();
 
-	//BWEM::Area getClosestArea(const BWAPI::TilePosition tp) const;
-	//bool isAreaOccupied(BWEM::Area area);
-	//bool doesAreaContainBase(BWEM::Area area);
-
 	// Information Updating Functions 
-	void addEnemyArea(BWAPI::TilePosition tp, BaseType b);
-	void removeEnemyArea(BWAPI::TilePosition tp);
+	void addEnemyBase(BWAPI::TilePosition tp, BaseType b);
+	void removeEnemyBase(BWAPI::TilePosition tp);
 
 	void addEnemy(BWAPI::Unit u);
 	void removeEnemy(BWAPI::Unit u);
+
+	//BWTA::BaseLocation * getMainBaseLocation(BWAPI::Player player);
+
+	BWAPI::TilePosition getMainBasePosition(BWAPI::Player player);
+
+	std::vector<BWAPI::TilePosition> getAllEnemyStartLocations();
 };
 

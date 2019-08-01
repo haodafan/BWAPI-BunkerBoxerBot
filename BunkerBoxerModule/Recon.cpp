@@ -4,6 +4,10 @@
 
 Recon::Recon()
 {
+	designatedScout = nullptr;
+	active = 0;
+	endMission = 0;
+	failures = 0;
 }
 
 
@@ -23,11 +27,13 @@ void Recon::beginScouting(BWAPI::Unit designatedScout)
 BWAPI::Unit Recon::endScouting()
 {
 	active = false; 
-	return designatedScout;
+	BWAPI::Unit copy = designatedScout;
+	designatedScout = nullptr;
+	return copy;
 }
 void Recon::update()
 {
-	if (designatedScout && designatedScout->exists() && active && scoutLocations.size() >= 1)
+	if (designatedScout != nullptr && designatedScout->exists() && active && scoutLocations.size() >= 1)
 	{
 		if (!designatedScout->move((BWAPI::Position)scoutLocations[0])) // Simple cast can convert in BWAPI
 		{
@@ -42,9 +48,19 @@ void Recon::update()
 			scoutLocations.erase(begin(scoutLocations));
 		}
 	}
-	else if (designatedScout && active)
+	else if (designatedScout != nullptr && active)
 	{
 		active = false;
 	}
 
+}
+
+bool Recon::isScouting()
+{
+	return active;
+}
+
+bool Recon::hasDesignatedUnits()
+{
+	return !(designatedScout == nullptr);
 }

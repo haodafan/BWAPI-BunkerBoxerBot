@@ -58,8 +58,6 @@ void BunkerBoxerModule::onStart()
   recon = Recon();
 
   // Add the 4 SCVs to the productionManager's workers, add the command center to the productionManager's buildings
-  
-	// At the start of the match, let's build ONE drone! 
   for (auto &u : Broodwar->self()->getUnits())
   {
 	  // Ignore the unit if it no longer exists
@@ -81,7 +79,7 @@ void BunkerBoxerModule::onStart()
 
 	  if (u->getType() == UnitTypes::Terran_SCV)
 	  {
-		  productionManager.addWorker(&u);
+		  productionManager.addWorker(u);
 	  }
 	  //else if (u->getType() == UnitTypes::Terran_Command_Center)
 	  //{
@@ -120,7 +118,26 @@ void BunkerBoxerModule::onFrame()
   productionManager.update();
 
   // Simple scouting mission 
+  int scoutTiming = 10; 
 
+  if (Broodwar->self()->supplyUsed() >= (scoutTiming * 2 && 
+	  Broodwar->self()->supplyUsed() <= (scoutTiming * 2 + 1) &&
+	  !recon.isScouting()))
+  {
+	  // Scout the enemy base 
+	  Broodwar->sendText("BB Command: Begin scouting mission!");
+	  std::vector<TilePosition> baseLocation = intel.getAllEnemyStartLocations();
+	  recon.setScoutingMission(baseLocation);
+	  recon.beginScouting(productionManager.conscript());
+  }
+
+  if (!recon.isScouting() && recon.hasDesignatedUnits())
+  {
+	  // Return the scout back to its original duties 
+	  BWAPI::Unit scout = recon.endScouting();
+	  if (scout->getType() == BWAPI::UnitTypes::Terran_SCV)
+		  productionManager.addWorker(scout);
+  }
 
 }
 
@@ -146,7 +163,7 @@ void BunkerBoxerModule::onPlayerLeft(BWAPI::Player player)
 {
   // Interact verbally with the other players in the game by
   // announcing that the other player has left.
-  Broodwar->sendText("Goodbye %s!", player->getName().c_str());
+  Broodwar->sendText("LMAO GET REKT %s!", player->getName().c_str());
 }
 
 void BunkerBoxerModule::onNukeDetect(BWAPI::Position target)
@@ -169,6 +186,8 @@ void BunkerBoxerModule::onNukeDetect(BWAPI::Position target)
 
 void BunkerBoxerModule::onUnitDiscover(BWAPI::Unit unit)
 {
+	if (unit->getPlayer() == BWAPI::Broodwar->enemy())
+		intel.addEnemy(unit);
 }
 
 void BunkerBoxerModule::onUnitEvade(BWAPI::Unit unit)
@@ -198,16 +217,25 @@ void BunkerBoxerModule::onUnitCreate(BWAPI::Unit unit)
   }
 
   // Add this unit to an appropriate thing
+  if (unit->getPlayer() != Broodwar->self())
+	  return;
 
   if (unit->getType() == BWAPI::UnitTypes::Terran_SCV)
   {
-	  BWAPI::Unit * heap_unit = new Unit(unit); // remember to delete!!!
-	  productionManager.addWorker(heap_unit);
+	  //BWAPI::Unit * heap_unit = new Unit(unit); // remember to delete!!!
+	  productionManager.addWorker(unit);
   }  
 }
 
 void BunkerBoxerModule::onUnitDestroy(BWAPI::Unit unit)
 {
+	if (unit->getPlayer() != BWAPI::Broodwar->self() && unit->getPlayer()->getType() != BWAPI::PlayerTypes::Neutral)
+		intel.removeEnemy(unit);
+
+	if (unit->getPlayer() == BWAPI::Broodwar->self())
+	{
+		// Maybe call some kind of delete update to check if units exist ? 
+	}
 }
 
 void BunkerBoxerModule::onUnitMorph(BWAPI::Unit unit)
@@ -236,11 +264,14 @@ void BunkerBoxerModule::onSaveGame(std::string gameName)
 
 void BunkerBoxerModule::onUnitComplete(BWAPI::Unit unit)
 {
+	if (unit->getPlayer() != Broodwar->self())
+		return;
+
 	if (unit->getType().canProduce() && unit->getType().isBuilding())
 	{
 		BWAPI::Broodwar->sendText("New Production Building Completion Detected.");
 		BWAPI::Broodwar->sendText(unit->getType().c_str());
-		BWAPI::Unit * heap_unit = new Unit(unit); // remember to delete!!!
-		productionManager.addBuilding(heap_unit);
+		//BWAPI::Unit * heap_unit = new Unit(unit); // remember to delete!!!
+		productionManager.addBuilding(unit);
 	}
 }

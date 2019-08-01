@@ -2,10 +2,10 @@
 
 using namespace BWAPI;
 using namespace Filter;
-//using namespace BWEM;
-//using namespace BWEM::BWAPI_ext;
-//using namespace BWEM::utils;
-//namespace { auto & theMap = BWEM::Map::Instance(); }
+using namespace BWEM;
+using namespace BWEM::BWAPI_ext;
+using namespace BWEM::utils;
+namespace { auto & theMap = BWEM::Map::Instance(); }
 
 Intelligence::Intelligence()
 {
@@ -27,7 +27,6 @@ void Intelligence::initialize()
 {
 	try 
 	{
-		/*
 		Broodwar << "Map initialization..." << std::endl;
 
 		theMap.Initialize();
@@ -42,7 +41,6 @@ void Intelligence::initialize()
 		Broodwar << "gg" << std::endl;
 
 		// Continued initialization
-		*/
 
 	}
 	catch (const std::exception & e)
@@ -56,21 +54,6 @@ void Intelligence::initialize()
 //	return theMap.StartingLocations();
 //}
 
-const BWAPI::TilePosition & Intelligence::getEnemyStartLocation() const
-{
-	
-
-	//const std::vector<BWAPI::TilePosition> startLocations = getStartingLocations();
-	//BWAPI::TilePosition closestEnemy = TilePosition();
-	//for (auto location : startLocations)
-	//{
-		
-	//}
-}
-const BWAPI::TilePosition & Intelligence::getEnemyNaturalLocation() const
-{
-
-}
 
 bool Intelligence::isEnemyScouted()
 {
@@ -83,31 +66,53 @@ bool Intelligence::isEnemyNaturalScouted()
 }
 
 // Information Updating Functions 
-void Intelligence::addEnemyArea(BWAPI::TilePosition tp, BaseType b)
+void Intelligence::addEnemyBase(BWAPI::TilePosition tp, BaseType b)
 {
-	struct EnemyArea newEnemyArea;
+	struct EnemyBase newEnemyBase;
 	//newEnemyArea.area = getClosestArea(tp);
 
-	newEnemyArea.center = tp;
-	newEnemyArea.buildings = std::vector<BWAPI::Unit>();
-	newEnemyArea.type = b;
+	newEnemyBase.center = tp;
+	newEnemyBase.buildings = std::vector<BWAPI::Unit>();
+	newEnemyBase.type = b;
+	newEnemyBase.active = true;
 
-	knownEnemyAreas.emplace_back(newEnemyArea);
+	knownEnemyBases.emplace_back(newEnemyBase);
 }
 
-void Intelligence::removeEnemyArea(BWAPI::TilePosition tp)
+void Intelligence::removeEnemyBase(BWAPI::TilePosition tp)
 {
-	for (auto enemyArea : knownEnemyAreas)
+	//struct std::vector<EnemyBase>::iterator closestBase;
+	double closestDist = DBL_MAX; 
+	for (auto enemyBase : knownEnemyBases)
 	{
+		double dist = enemyBase.center.getDistance(tp); 
+		if (closestDist > dist)
+		{
+			closestDist = dist;
+			//closestBase = enemyBase;
+			enemyBase.active = false;
+		}
 	}
+	//knownEnemyBases.erase(closestBase);
 }
 
 void Intelligence::addEnemy(BWAPI::Unit u)
 {
-
+	BWAPI::Broodwar->sendText("Intelligence Report: Enemy unit added to watch list: %s", u->getType().c_str());
+	knownEnemyUnits.emplace_back(u);
 }
 
 void Intelligence::removeEnemy(BWAPI::Unit u)
 {
+	BWAPI::Broodwar->sendText("Intelligence Report: Enemy unit removed from watch list: %s", u->getType().c_str());
+}
 
+std::vector<BWAPI::TilePosition> Intelligence::getAllEnemyStartLocations()
+{
+	std::vector<BWAPI::TilePosition> startLocations; 
+	for (const BWAPI::Player &p : BWAPI::Broodwar->enemies())
+	{
+		startLocations.emplace_back(p->getStartLocation());
+	}
+	return startLocations;
 }

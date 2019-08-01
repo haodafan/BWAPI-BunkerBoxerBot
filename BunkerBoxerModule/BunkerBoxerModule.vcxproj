@@ -93,7 +93,7 @@
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
       <ImportLibrary>$(IntDir)$(TargetName).lib</ImportLibrary>
       <TargetMachine>MachineX86</TargetMachine>
-      <AdditionalDependencies>$(BWAPI_DIR)/Release/BWAPI.lib;$(BWTA_DIR)/lib/BWTA.lib;$(BWTA_DIR)/lib/BWTAd.lib;$(BWTA_DIR)/lib/libCGAL-vc120-mt-4.4.lib;$(BWTA_DIR)/lib/libboost_filesystem-vc120-mt-1_56.lib;$(BWTA_DIR)/lib/libboost_system-vc120-mt-1_56.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>$(BWAPI_DIR)/Release/BWAPI.lib;%(AdditionalDependencies)</AdditionalDependencies>
       <AdditionalLibraryDirectories>$(BWAPI_DIR)/include;$(BWAPI_DIR)/Release/BWAPI.lib;</AdditionalLibraryDirectories>
     </Link>
   </ItemDefinitionGroup>

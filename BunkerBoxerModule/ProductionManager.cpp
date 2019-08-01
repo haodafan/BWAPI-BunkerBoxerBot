@@ -37,18 +37,18 @@ void ProductionManager::update()
 	// if our worker is idle
 	for (auto &u : allWorkers)
 	{
-		if ((*u)->isIdle())
+		if (u->isIdle())
 		{
 			// Order workers carrying a resource to return them to the center,
 			// otherwise find a mineral patch to harvest.
-			if ((*u)->isCarryingGas() || (*u)->isCarryingMinerals())
+			if (u->isCarryingGas() || u->isCarryingMinerals())
 			{
-				(*u)->returnCargo();
+				u->returnCargo();
 			}
-			else if (!(*u)->getPowerUp())  // The worker cannot harvest anything if it
+			else if (!u->getPowerUp())  // The worker cannot harvest anything if it
 			{                             // is carrying a powerup such as a flag
 			  // Harvest from the nearest mineral patch or gas refinery
-				if (!(*u)->gather((*u)->getClosestUnit(BWAPI::Filter::IsMineralField)))
+				if (!u->gather(u->getClosestUnit(BWAPI::Filter::IsMineralField)))
 				{
 					// If the call fails, then print the last error message
 					BWAPI::Broodwar << BWAPI::Broodwar->getLastError() << std::endl;
@@ -94,11 +94,11 @@ void ProductionManager::update()
 
 				currentLowBound = saveList[0].mineralPrice(); // We shouldn't spend too much money while our worker is travelling
 
-				const BWAPI::Unit * u = getBuilder();
+				const BWAPI::Unit u = getBuilder();
 
 				// Build savelist item => Find location and construct it
-				BWAPI::TilePosition buildPosition = BWAPI::Broodwar->getBuildLocation(saveList[0].unitType, (*u)->getTilePosition());
-				(*u)->build(saveList[0].unitType, buildPosition);
+				BWAPI::TilePosition buildPosition = BWAPI::Broodwar->getBuildLocation(saveList[0].unitType, u->getTilePosition());
+				u->build(saveList[0].unitType, buildPosition);
 
 				// Remove from saving list
 				saveList.erase(saveList.begin());
@@ -124,9 +124,9 @@ void ProductionManager::update()
 		for (auto b : productionBuildings)
 		{
 			// Stage 1 : Passively build SCVs only
-			if (passiveBuildUnit == BWAPI::UnitTypes::Terran_SCV && (*b)->getType() == BWAPI::UnitTypes::Terran_Command_Center)
+			if (passiveBuildUnit == BWAPI::UnitTypes::Terran_SCV && b->getType() == BWAPI::UnitTypes::Terran_Command_Center)
 			{
-				produceUnitFromBuilding(BWAPI::UnitTypes::Terran_SCV, *b);
+				produceUnitFromBuilding(BWAPI::UnitTypes::Terran_SCV, b);
 			}
 
 			// Stage 2 : Passively build marines, 
@@ -134,15 +134,15 @@ void ProductionManager::update()
 			else if (passiveBuildUnit == BWAPI::UnitTypes::Terran_Marine)
 			{
 				// Our main objective is to build as many marines as possible 
-				if ((*b)->getType() == BWAPI::UnitTypes::Terran_Barracks)
+				if (b->getType() == BWAPI::UnitTypes::Terran_Barracks)
 				{
-					produceUnitFromBuilding(BWAPI::UnitTypes::Terran_Marine, *b);
+					produceUnitFromBuilding(BWAPI::UnitTypes::Terran_Marine, b);
 				}
 
 				// Only if we have enough minerals can we produce SCVs 
-				if ((*b)->getType() == BWAPI::UnitTypes::Terran_Command_Center && BWAPI::Broodwar->self()->minerals() >= 100)
+				if (b->getType() == BWAPI::UnitTypes::Terran_Command_Center && BWAPI::Broodwar->self()->minerals() >= 100)
 				{
-					produceUnitFromBuilding(BWAPI::UnitTypes::Terran_SCV, *b);
+					produceUnitFromBuilding(BWAPI::UnitTypes::Terran_SCV, b);
 				}
 			}
 		}
@@ -153,11 +153,11 @@ void ProductionManager::update()
 		currentLowBound = 0; // we spent the money presumably on the building 
 }
 
-void ProductionManager::addBuilding(const BWAPI::Unit* building)
+void ProductionManager::addBuilding(BWAPI::Unit building)
 {
 	productionBuildings.emplace_back(building);
 }
-void ProductionManager::removeBuilding(const BWAPI::Unit* building)
+void ProductionManager::removeBuilding(BWAPI::Unit building)
 {
 	for (auto it = begin(productionBuildings); it != end(productionBuildings); ++it) {
 		if (building == *it)
@@ -168,11 +168,11 @@ void ProductionManager::removeBuilding(const BWAPI::Unit* building)
 	}
 }
 
-void ProductionManager::addWorker(const BWAPI::Unit* worker)
+void ProductionManager::addWorker(BWAPI::Unit worker)
 {
 	allWorkers.emplace_back(worker);
 }
-void ProductionManager::removeWorker(const BWAPI::Unit* worker)
+void ProductionManager::removeWorker(BWAPI::Unit worker)
 {
 	for (auto it = begin(allWorkers); it != end(allWorkers); ++it) {
 		if (worker == *it)
@@ -202,11 +202,11 @@ void ProductionManager::changePassiveProduction(BWAPI::UnitType u)
 	passiveBuildUnit = u;
 }
 
-const BWAPI::Unit * ProductionManager::getBuilder()
+BWAPI::Unit ProductionManager::getBuilder()
 {
 	for (auto &it : allWorkers)
 	{
-		if ((*it)->isIdle() || (*it)->isGatheringMinerals())
+		if (it->isIdle() || it->isGatheringMinerals())
 			return it;
 	}
 	return NULL; 
@@ -239,7 +239,7 @@ void ProductionManager::produceUnitFromBuilding(BWAPI::UnitType unit, BWAPI::Uni
 			lastChecked = Broodwar->getFrameCount();
 
 			// Retrieve a unit that is capable of constructing the supply needed
-			Unit supplyBuilder = *getBuilder();
+			Unit supplyBuilder = getBuilder();
 			// If a unit was found
 			if (supplyBuilder)
 			{
@@ -272,15 +272,15 @@ void ProductionManager::produceUnitFromBuilding(BWAPI::UnitType unit, BWAPI::Uni
 	} // closure: failed to train idle unit
 }
 
-const BWAPI::Unit * ProductionManager::conscript()
+BWAPI::Unit ProductionManager::conscript()
 {
 	if (allWorkers.size() > 0)
 	{
 		for (auto worker : allWorkers)
 		{
-			if ((*worker)->isGatheringMinerals())
+			if (worker->isGatheringMinerals())
 			{
-				const BWAPI::Unit * conscriptedWorker = allWorkers[0];
+				const BWAPI::Unit conscriptedWorker = allWorkers[0];
 				BWAPI::Broodwar->sendText("Production Manager Report: Worker has been pressed into service!");
 				allWorkers.erase(begin(allWorkers));
 				return conscriptedWorker;

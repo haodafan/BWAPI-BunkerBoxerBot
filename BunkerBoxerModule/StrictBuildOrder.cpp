@@ -19,7 +19,7 @@ void StrictBuildOrder::AddItem(MetaType type, int supply)
 void StrictBuildOrder::setBuilt(MetaType m)
 {
 	// We find the first non-built item of that type 
-	for (int i = 0; i < list.size(); i++)
+	for (unsigned int i = 0; i < list.size(); i++)
 	{
 		if (list[i].metaType.unitType == m.unitType && list[i].built == false)
 		{
@@ -54,7 +54,7 @@ void StrictBuildOrder::setActive(bool act)
 MetaType StrictBuildOrder::getNextItem()
 {
 	// We find the first non-built item
-	for (int i = 0; i < list.size(); i++)
+	for (unsigned int i = 0; i < list.size(); i++)
 	{
 		if (list[i].built == false)
 		{
@@ -66,7 +66,7 @@ MetaType StrictBuildOrder::getNextItem()
 MetaType StrictBuildOrder::getItemBySupply(int supp)
 {
 	// We find the item of that particular supply
-	for (int i = 0; i < list.size(); i++)
+	for (unsigned int i = 0; i < list.size(); i++)
 	{
 		if (list[i].built == false && list[i].supply <= supp)
 		{

@@ -17,12 +17,18 @@ Recon::~Recon()
 
 void Recon::setScoutingMission(std::vector<BWAPI::TilePosition> locations)
 {
+	for (auto loc : locations)
+	{
+		BWAPI::Broodwar->sendText("Recon Report: Scouting Location: %d, %d", loc.x, loc.y);
+	}
+	BWAPI::Broodwar->sendText("End of scouting locations");
 	this->scoutLocations = locations;
 }
 void Recon::beginScouting(BWAPI::Unit designatedScout)
 {
 	this->designatedScout = designatedScout; 
 	active = true;
+	BWAPI::Broodwar->sendText("Scout mission currently active!");
 }
 BWAPI::Unit Recon::endScouting()
 {
@@ -35,9 +41,13 @@ void Recon::update()
 {
 	if (designatedScout != nullptr && designatedScout->exists() && active && scoutLocations.size() >= 1)
 	{
+		//BWAPI::Broodwar->sendText("RECON UPDATE : SHOULD BE MOVING NAO"); //debugging
 		if (!designatedScout->move((BWAPI::Position)scoutLocations[0])) // Simple cast can convert in BWAPI
 		{
 			// If the call fails, then print the last error message
+			BWAPI::Broodwar << "Recon Report: Unit moving error! " << std::endl;
+			BWAPI::Broodwar << "Unit attempting to move from " << designatedScout->getTilePosition().x << "," << designatedScout->getTilePosition().y 
+				<< " to " << scoutLocations[0].x << "," << scoutLocations[0].y << std::endl;
 			BWAPI::Broodwar << BWAPI::Broodwar->getLastError() << std::endl;
 		}
 
@@ -48,7 +58,12 @@ void Recon::update()
 			scoutLocations.erase(begin(scoutLocations));
 		}
 	}
-	else if (designatedScout != nullptr && active)
+	else if (scoutLocations.size() == 0)
+	{
+		//BWAPI::Broodwar->sendText("Recon Report: Scouting Mission Completed.");
+		//endScouting();
+	}
+	else if (designatedScout == nullptr && active)
 	{
 		active = false;
 	}
@@ -57,6 +72,7 @@ void Recon::update()
 
 bool Recon::isScouting()
 {
+	//BWAPI::Broodwar->sendText("We are currently scouting (active): %b", active);
 	return active;
 }
 

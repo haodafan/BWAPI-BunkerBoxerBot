@@ -110,9 +110,23 @@ void Intelligence::removeEnemy(BWAPI::Unit u)
 std::vector<BWAPI::TilePosition> Intelligence::getAllEnemyStartLocations()
 {
 	std::vector<BWAPI::TilePosition> startLocations; 
-	for (const BWAPI::Player &p : BWAPI::Broodwar->enemies())
+
+	// old code
+	//for (const BWAPI::Player &p : BWAPI::Broodwar->enemies())
+	//{
+	//	//BWAPI::Broodwar->drawTextMap((Position) p->getStartLocation(), "%c%s", Text::White, "PLAYER START LOCATION");
+	//	if (p->getStartLocation() != TilePositions::None)
+	//		startLocations.emplace_back(p->getStartLocation()); // Issue: Probably tile position is Unknown
+	//}
+
+	for (BWAPI::TilePosition loc : BWAPI::Broodwar->getStartLocations())
 	{
-		startLocations.emplace_back(p->getStartLocation());
+		// Not our own start location, obviously :^) 
+		if (loc != BWAPI::Broodwar->self()->getStartLocation())
+		{
+			startLocations.emplace_back(loc);
+		}
 	}
+
 	return startLocations;
 }

@@ -5,6 +5,8 @@
 using namespace BWAPI;
 using namespace Filter;
 
+static bool said = false; //debugging
+
 void BunkerBoxerModule::onStart()
 {
   // Hello World!
@@ -115,14 +117,23 @@ void BunkerBoxerModule::onFrame()
   if ( Broodwar->getFrameCount() % Broodwar->getLatencyFrames() != 0 )
     return;
 
+  // UPDATES
   productionManager.update();
+  recon.update();
 
   // Simple scouting mission 
-  int scoutTiming = 10; 
+  int scoutTiming = 6; 
 
-  if (Broodwar->self()->supplyUsed() >= (scoutTiming * 2 && 
-	  Broodwar->self()->supplyUsed() <= (scoutTiming * 2 + 1) &&
-	  !recon.isScouting()))
+  //if (Broodwar->self()->supplyUsed() == scoutTiming * 2)
+  //  Broodwar->sendText("WE ARE NOW AT TEN SUPPLY");
+  if (!said && Broodwar->self()->supplyUsed() == scoutTiming)
+  {
+	  Broodwar->sendText("Recon mission currently active: %d", recon.isScouting());
+	  said = true;
+  }
+
+  if ((Broodwar->self()->supplyUsed() == (scoutTiming * 2)) && 
+	  (!recon.isScouting()))
   {
 	  // Scout the enemy base 
 	  Broodwar->sendText("BB Command: Begin scouting mission!");

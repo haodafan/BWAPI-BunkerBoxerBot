@@ -276,19 +276,16 @@ BWAPI::Unit ProductionManager::conscript()
 {
 	if (allWorkers.size() > 0)
 	{
-		for (auto worker : allWorkers)
+		for (auto it = begin(allWorkers); it != end(allWorkers); it++)
 		{
-			if (worker->isGatheringMinerals())
+			if (!(*it)->isConstructing()); 
 			{
-				const BWAPI::Unit conscriptedWorker = allWorkers[0];
+				const BWAPI::Unit conscriptedWorker = (*it);
 				BWAPI::Broodwar->sendText("Production Manager Report: Worker has been pressed into service!");
-				allWorkers.erase(begin(allWorkers));
+				allWorkers.erase(it);
 				return conscriptedWorker;
 			}
 		}
 	}
-	else
-	{
-		BWAPI::Broodwar->sendText("Production Manager Report: No workers available to conscript!");
-	}
+	BWAPI::Broodwar->sendText("Production Manager Report: No workers available to conscript!");
 }

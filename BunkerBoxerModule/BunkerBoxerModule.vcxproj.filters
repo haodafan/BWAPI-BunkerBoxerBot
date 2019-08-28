@@ -96,6 +96,9 @@
     <ClCompile Include="Recon.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="FieldCommand.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="BuildOrderQueue.h">
@@ -177,6 +180,9 @@
       <Filter>BWEM-1.4.1</Filter>
     </ClInclude>
     <ClInclude Include="Recon.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="FieldCommand.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

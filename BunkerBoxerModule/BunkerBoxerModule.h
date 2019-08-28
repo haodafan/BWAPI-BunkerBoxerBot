@@ -4,6 +4,7 @@
 #include "ProductionManager.h"
 #include "Intelligence.h"
 #include "Recon.h"
+#include "FieldCommand.h"
 
 // Remember not to use "Broodwar" in any global class constructor!
 
@@ -19,6 +20,7 @@ class BunkerBoxerModule : public BWAPI::AIModule
 	ProductionManager productionManager;
 	Intelligence intel; 
 	Recon recon;
+	FieldCommand command;
 
 public:
   // Virtual functions for callbacks, leave these as they are.

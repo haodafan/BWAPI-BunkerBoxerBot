@@ -57,7 +57,7 @@ void Intelligence::initialize()
 
 bool Intelligence::isEnemyScouted()
 {
-
+	return knownEnemyBases.size() > 0;
 }
 
 bool Intelligence::isEnemyNaturalScouted()
@@ -98,13 +98,63 @@ void Intelligence::removeEnemyBase(BWAPI::TilePosition tp)
 
 void Intelligence::addEnemy(BWAPI::Unit u)
 {
-	BWAPI::Broodwar->sendText("Intelligence Report: Enemy unit added to watch list: %s", u->getType().c_str());
+	//BWAPI::Broodwar->sendText("Intelligence Report: Enemy unit added to watch list: %s", u->getType().c_str());
 	knownEnemyUnits.emplace_back(u);
+
+	if (u->getType().isResourceDepot())
+	{
+		if (!isNearStartLocation(u->getTilePosition()))
+		{
+			BWAPI::Broodwar->sendText("Expansion Detected!");
+			//BWAPI::Broodwar->sendText("Distance from start location: %d", u->getTilePosition().getApproxDistance(u->getPlayer()->getStartLocation()));
+			addEnemyBase(u->getTilePosition(), BaseType::Expansion);
+		}
+		else 
+		{
+			BWAPI::Broodwar->sendText("Main Base Detected!");
+			addEnemyBase(u->getTilePosition(), BaseType::Main);
+		}
+	}
 }
 
 void Intelligence::removeEnemy(BWAPI::Unit u)
 {
 	BWAPI::Broodwar->sendText("Intelligence Report: Enemy unit removed from watch list: %s", u->getType().c_str());
+}
+
+
+BWAPI::TilePosition Intelligence::getMainBasePosition(BWAPI::Player player)
+{
+	
+	if (player == BWAPI::Broodwar->enemy())
+	{
+		for (unsigned int i = 0; i < knownEnemyBases.size(); i++)
+		{
+			if (knownEnemyBases[i].type == BaseType::Main)
+			{
+				return knownEnemyBases[i].center;
+			}
+		}
+	}
+	else if (player == BWAPI::Broodwar->self())
+	{
+		return BWAPI::Broodwar->self()->getStartLocation();
+	}
+}
+BWAPI::TilePosition Intelligence::getEnemyNaturalLocation()
+{
+	for (int i = 0; i < knownEnemyBases.size(); i++)
+	{
+		if (knownEnemyBases[i].type == BaseType::Expansion) // Currently we have no way of differentiating Natural and Expansion
+		{
+			return knownEnemyBases[i].center;
+		}
+	}
+}
+
+int Intelligence::countEnemyBases()
+{
+	return knownEnemyBases.size();
 }
 
 std::vector<BWAPI::TilePosition> Intelligence::getAllEnemyStartLocations()
@@ -129,4 +179,20 @@ std::vector<BWAPI::TilePosition> Intelligence::getAllEnemyStartLocations()
 	}
 
 	return startLocations;
+}
+
+bool Intelligence::isNearStartLocation(BWAPI::TilePosition tp)
+{
+	bool isNear = false;
+	std::vector<BWAPI::TilePosition> startLocations = getAllEnemyStartLocations();
+
+	for (unsigned int i = 0; i < startLocations.size(); i++)
+	{
+		if (startLocations[i].getApproxDistance(tp) < 10)
+		{
+			isNear = true;
+			return isNear;
+		}
+	}
+	return isNear;
 }

@@ -74,6 +74,9 @@ public:
 	//BWTA::BaseLocation * getMainBaseLocation(BWAPI::Player player);
 
 	BWAPI::TilePosition getMainBasePosition(BWAPI::Player player);
+	BWAPI::TilePosition getEnemyNaturalLocation();
+	int countEnemyBases();
+	bool isNearStartLocation(BWAPI::TilePosition tp);
 
 	std::vector<BWAPI::TilePosition> getAllEnemyStartLocations();
 };

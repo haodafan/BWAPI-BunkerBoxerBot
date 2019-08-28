@@ -1,0 +1,1 @@
+on Destination, if spawned on bottom, barracks will FAIL to build.

@@ -120,6 +120,7 @@
     <ClCompile Include="BWEM-1.4.1\src\winutils.cpp" />
     <ClCompile Include="Common.cpp" />
     <ClCompile Include="Dll.cpp" />
+    <ClCompile Include="FieldCommand.cpp" />
     <ClCompile Include="Intelligence.cpp" />
     <ClCompile Include="ProductionManager.cpp" />
     <ClCompile Include="Recon.cpp" />
@@ -148,6 +149,7 @@
     <ClInclude Include="BWEM-1.4.1\src\utils.h" />
     <ClInclude Include="BWEM-1.4.1\src\winutils.h" />
     <ClInclude Include="Common.h" />
+    <ClInclude Include="FieldCommand.h" />
     <ClInclude Include="Intelligence.h" />
     <ClInclude Include="MetaType.h" />
     <ClInclude Include="ProductionManager.h" />

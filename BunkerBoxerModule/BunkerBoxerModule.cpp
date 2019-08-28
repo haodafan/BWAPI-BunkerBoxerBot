@@ -59,6 +59,8 @@ void BunkerBoxerModule::onStart()
 
   recon = Recon();
 
+  command = FieldCommand();
+
   // Add the 4 SCVs to the productionManager's workers, add the command center to the productionManager's buildings
   for (auto &u : Broodwar->self()->getUnits())
   {
@@ -120,9 +122,10 @@ void BunkerBoxerModule::onFrame()
   // UPDATES
   productionManager.update();
   recon.update();
+  command.update();
 
-  // Simple scouting mission 
-  int scoutTiming = 6; 
+  // Simple scouting mission ==================================================================
+  int scoutTiming = 8; 
 
   //if (Broodwar->self()->supplyUsed() == scoutTiming * 2)
   //  Broodwar->sendText("WE ARE NOW AT TEN SUPPLY");
@@ -148,6 +151,30 @@ void BunkerBoxerModule::onFrame()
 	  BWAPI::Unit scout = recon.endScouting();
 	  if (scout->getType() == BWAPI::UnitTypes::Terran_SCV)
 		  productionManager.addWorker(scout);
+  }
+
+  // ==================================== Attack =====================================
+  int marineCountForAttack = 1;
+  if (command.isPassive() && intel.isEnemyScouted() && command.getMarineCount() >= marineCountForAttack)
+  {
+	  Broodwar << "THE TIME IS NOW TO COMMENCE THE ATTACK!!!!!!!!!!!!!!";
+
+	  // Add SCVs to our army 
+	  for (int i = 0; i < 5; i++)
+		command.addUnit(productionManager.conscript());
+
+	  // Add locations
+
+	  if (intel.countEnemyBases() >= 2)
+	  {
+		  Broodwar << "Attack natural location: " << intel.getEnemyNaturalLocation().x << "," << intel.getEnemyNaturalLocation().y;
+		  command.addAssaultLocation(intel.getEnemyNaturalLocation());
+	  }
+	  command.addAssaultLocation(intel.getMainBasePosition(Broodwar->enemy()));
+	  Broodwar << "Attack main location: " << intel.getMainBasePosition(Broodwar->enemy()).x << "," << intel.getMainBasePosition(Broodwar->enemy()).y;
+
+	  // Commence Assault
+	  command.assault();
   }
 
 }
@@ -236,6 +263,11 @@ void BunkerBoxerModule::onUnitCreate(BWAPI::Unit unit)
 	  //BWAPI::Unit * heap_unit = new Unit(unit); // remember to delete!!!
 	  productionManager.addWorker(unit);
   }  
+
+  if (unit->getType() == BWAPI::UnitTypes::Terran_Marine)
+  {
+	  command.addUnit(unit);
+  }
 }
 
 void BunkerBoxerModule::onUnitDestroy(BWAPI::Unit unit)

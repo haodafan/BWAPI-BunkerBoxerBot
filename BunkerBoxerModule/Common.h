@@ -23,6 +23,11 @@ Distributed under GPL v3, see LICENSE for details.
 
 
 #include <BWAPI.h>
+//class Common
+//{
+void deleteUnitsThatDontExist(std::vector<BWAPI::Unit> v);
+//};
+
 /*
 #include <boost/foreach.hpp>
 #include <boost/progress.hpp>

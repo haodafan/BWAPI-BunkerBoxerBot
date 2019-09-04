@@ -27,7 +27,9 @@ void FieldCommand::update()
 {
 	// First lets get rid of shit that don't exist 
 	deleteUnitsThatDontExist(army);
+	deleteUnitsThatDontExist(reinforcements);
 	deleteUnitsThatDontExist(marines);
+	deleteUnitsThatDontExist(bunkers);
 
 	if (lead == nullptr || !lead->exists())
 	{
@@ -135,7 +137,7 @@ void FieldCommand::update()
 		// Attack closest unit
 		for (auto u : army)
 		{
-			if (lead && u->getDistance(lead) > 40) // 10 tile positions
+			if (lead && u->getDistance(lead) > 64) // 10 tile positions
 			{
 				u->move(lead->getPosition());
 			}
@@ -189,6 +191,7 @@ bool FieldCommand::UnitNearAssaultLocation(BWAPI::Unit u)
 }
 
 // Quick helper function i made just now
+/*
 void FieldCommand::deleteUnitsThatDontExist(std::vector<BWAPI::Unit> v)
 {
 	for (auto it = begin(v); it != end(v); it++)
@@ -199,6 +202,7 @@ void FieldCommand::deleteUnitsThatDontExist(std::vector<BWAPI::Unit> v)
 		}
 	}
 }
+*/
 
 // Adds a unit to the army, and to their unique category
 void FieldCommand::addUnit(BWAPI::Unit u)
@@ -283,6 +287,7 @@ BWAPI::Unit FieldCommand::reassign(BWAPI::Unit u)
 
 		}
 	}
+	return u;
 }
 
 void FieldCommand::reassignRole(BWAPI::Unit u, std::vector<BWAPI::Unit> from, std::vector <BWAPI::Unit> to)

@@ -33,6 +33,10 @@ void ProductionManager::initialize()
 
 void ProductionManager::update()
 {
+
+	deleteUnitsThatDontExist(allWorkers);
+	deleteUnitsThatDontExist(productionBuildings);
+
 	// Sends idle workers to mine
 	// if our worker is idle
 	for (auto &u : allWorkers)
@@ -278,7 +282,7 @@ BWAPI::Unit ProductionManager::conscript()
 	{
 		for (auto it = begin(allWorkers); it != end(allWorkers); it++)
 		{
-			if (!(*it)->isConstructing()); 
+			if (!(*it)->isConstructing())
 			{
 				const BWAPI::Unit conscriptedWorker = (*it);
 				BWAPI::Broodwar->sendText("Production Manager Report: Worker has been pressed into service!");

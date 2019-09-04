@@ -55,6 +55,6 @@ public:
 	int getMarineCount();
 	bool isPassive();
 	bool UnitNearAssaultLocation(BWAPI::Unit u);
-	void deleteUnitsThatDontExist(std::vector<BWAPI::Unit> v);
+	//void deleteUnitsThatDontExist(std::vector<BWAPI::Unit> v);
 };
 

@@ -60,9 +60,10 @@ bool Intelligence::isEnemyScouted()
 	return knownEnemyBases.size() > 0;
 }
 
+/// not implemented
 bool Intelligence::isEnemyNaturalScouted()
 {
-
+	return true;
 }
 
 // Information Updating Functions 

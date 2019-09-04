@@ -1,1 +1,12 @@
+Re-vamp unit management system : 
+	- New struct type : Unit 
+	- Give each unit a set of tags and stances (i.e. "marine", "worker", etc) 
+	- 
+
 Replace all "attack closest unit" code with one which priorities certain targets
+
+Different approaches to attacking Zerg, Terran, Protoss 
+Zerg: Build bunker at chokes or right outside creep 
+Protoss: Different approach when dealing with Photon Cannons 
+
+[LATE] Scout for proxies and deal with them accordingly 

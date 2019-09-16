@@ -28,6 +28,7 @@ class FieldCommand
 
 	State stance;
 	bool ready;
+	bool needNewBunker;
 
 public:
 	FieldCommand();
@@ -51,10 +52,16 @@ public:
 	BWAPI::Unit reassign(BWAPI::Unit u);
 	void reassignRole(BWAPI::Unit u, std::vector<BWAPI::Unit> from, std::vector < BWAPI::Unit> to);
 
+	// Combat
+	BWAPI::Unit GetLargestThreatFor(BWAPI::Unit u);
+
 	// Helper Functions 
 	int getMarineCount();
 	bool isPassive();
 	bool UnitNearAssaultLocation(BWAPI::Unit u);
 	//void deleteUnitsThatDontExist(std::vector<BWAPI::Unit> v);
+
+	// Are there any attacking SCVs? 
+	bool attackingSCVs();
 };
 

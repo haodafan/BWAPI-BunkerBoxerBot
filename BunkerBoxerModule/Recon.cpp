@@ -26,6 +26,12 @@ void Recon::setScoutingMission(std::vector<BWAPI::TilePosition> locations)
 }
 void Recon::beginScouting(BWAPI::Unit designatedScout)
 {
+	// Hack code - needs change later
+	if (this->designatedScout)
+	{
+		designatedScout->move((BWAPI::Position) this->scoutLocations[scoutLocations.size() - 1]);
+		return;
+	}
 	this->designatedScout = designatedScout; 
 	active = true;
 	BWAPI::Broodwar->sendText("Scout mission currently active!");
@@ -51,7 +57,7 @@ void Recon::update()
 			BWAPI::Broodwar << BWAPI::Broodwar->getLastError() << std::endl;
 		}
 
-		if (scoutLocations[0].getApproxDistance(designatedScout->getTilePosition()) < 6)
+		if (scoutLocations[0].getApproxDistance(designatedScout->getTilePosition()) < 4)
 		{
 			BWAPI::Broodwar->sendText("Recon Report: Location has been scouted!");
 

@@ -26,6 +26,15 @@ Distributed under GPL v3, see LICENSE for details.
 //class Common
 //{
 void deleteUnitsThatDontExist(std::vector<BWAPI::Unit> v);
+
+// POSITIONAL DISTANCE (not TilePosition)
+int getDistBetweenUnits(BWAPI::Unit a, BWAPI::Unit b);
+
+//struct Direction
+//{
+//	int North; 
+//	int East;
+//};
 //};
 
 /*

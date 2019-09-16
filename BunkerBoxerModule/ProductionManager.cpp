@@ -41,6 +41,16 @@ void ProductionManager::update()
 	// if our worker is idle
 	for (auto &u : allWorkers)
 	{
+		// If under attack
+		//if (u->isUnderAttack())
+		//{
+		BWAPI::Unit potentialEnemy = u->getClosestUnit(BWAPI::Filter::IsEnemy);
+			if (potentialEnemy && potentialEnemy->getDistance(u) < 4)
+			{
+				u->attack(potentialEnemy);
+			}
+		//}
+
 		if (u->isIdle())
 		{
 			// Order workers carrying a resource to return them to the center,
@@ -101,8 +111,18 @@ void ProductionManager::update()
 				const BWAPI::Unit u = getBuilder();
 
 				// Build savelist item => Find location and construct it
-				BWAPI::TilePosition buildPosition = BWAPI::Broodwar->getBuildLocation(saveList[0].unitType, u->getTilePosition());
-				u->build(saveList[0].unitType, buildPosition);
+				if (saveList[0].unitType == BWAPI::UnitTypes::Terran_Barracks)
+				{
+					BWAPI::TilePosition buildPosition = BWAPI::Broodwar->self()->getStartLocation();
+					//buildPosition.x += 5;
+					buildPosition.y += 4;
+					u->build(saveList[0].unitType, buildPosition);
+				}
+				else
+				{
+					BWAPI::TilePosition buildPosition = BWAPI::Broodwar->getBuildLocation(saveList[0].unitType, u->getTilePosition());
+					u->build(saveList[0].unitType, buildPosition);
+				}
 
 				// Remove from saving list
 				saveList.erase(saveList.begin());
@@ -144,7 +164,7 @@ void ProductionManager::update()
 				}
 
 				// Only if we have enough minerals can we produce SCVs 
-				if (b->getType() == BWAPI::UnitTypes::Terran_Command_Center && BWAPI::Broodwar->self()->minerals() >= 100)
+				if (b->getType() == BWAPI::UnitTypes::Terran_Command_Center && BWAPI::Broodwar->self()->minerals() >= 140)
 				{
 					produceUnitFromBuilding(BWAPI::UnitTypes::Terran_SCV, b);
 				}

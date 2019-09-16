@@ -5,13 +5,17 @@
   FieldCommand.cpp
   Intelligence.cpp
   ProductionManager.cpp
+  Recon.cpp
   StrictBuildOrder.cpp
-c:\bwapi-sc\bwapi\release440\haodabots\bunkerboxermodule\bunkerboxermodule\intelligence.cpp(146): warning C4018: '<': signed/unsigned mismatch
+c:\bwapi-sc\bwapi\release440\haodabots\bunkerboxermodule\bunkerboxermodule\intelligence.cpp(83): warning C4018: '<': signed/unsigned mismatch
+c:\bwapi-sc\bwapi\release440\haodabots\bunkerboxermodule\bunkerboxermodule\intelligence.cpp(163): warning C4018: '<': signed/unsigned mismatch
      Creating library Release\BunkerBoxerModule.lib and object Release\BunkerBoxerModule.exp
   Generating code
-c:\bwapi-sc\bwapi\release440\haodabots\bunkerboxermodule\bunkerboxermodule\productionmanager.cpp(295): warning C4715: 'ProductionManager::conscript': not all control paths return a value
-  33 of 8461 functions ( 0.4%) were compiled, the rest were copied from previous compilation.
-    1 functions were new in current compilation
-    53 functions had inline decision re-evaluated but remain unchanged
+c:\bwapi-sc\bwapi\release440\haodabots\bunkerboxermodule\bunkerboxermodule\intelligence.cpp(160): warning C4715: 'Intelligence::getMainBasePosition': not all control paths return a value
+c:\bwapi-sc\bwapi\release440\haodabots\bunkerboxermodule\bunkerboxermodule\fieldcommand.cpp(72): warning C4700: uninitialized local variable 'attackEnemy' used
+c:\bwapi-sc\bwapi\release440\haodabots\bunkerboxermodule\bunkerboxermodule\fieldcommand.cpp(374): warning C4700: uninitialized local variable 'attackEnemy' used
+  897 of 8510 functions (10.5%) were compiled, the rest were copied from previous compilation.
+    31 functions were new in current compilation
+    211 functions had inline decision re-evaluated but remain unchanged
   Finished generating code
   BunkerBoxerModule.vcxproj -> C:\BWAPI-SC\bwapi\release440\HaodaBots\BunkerBoxerModule\Release\BunkerBoxerModule.dll

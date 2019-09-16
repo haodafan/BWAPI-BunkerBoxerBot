@@ -77,6 +77,19 @@ void Intelligence::addEnemyBase(BWAPI::TilePosition tp, BaseType b)
 	newEnemyBase.type = b;
 	newEnemyBase.active = true;
 
+	if (b == BaseType::Main)
+	{
+		// If there's more than one main base, then something is wrong 
+		for (int i = 0; i < knownEnemyBases.size(); i++)
+		{
+			if (knownEnemyBases[i].type == BaseType::Main)
+			{
+				Broodwar->sendText("Main scouted twice.");
+				return;
+			}
+		}
+	}
+
 	knownEnemyBases.emplace_back(newEnemyBase);
 }
 
@@ -136,6 +149,9 @@ BWAPI::TilePosition Intelligence::getMainBasePosition(BWAPI::Player player)
 				return knownEnemyBases[i].center;
 			}
 		}
+
+		// If we get here, we don't have any main base positions available to us 
+		return BWAPI::Broodwar->self()->getStartLocation();
 	}
 	else if (player == BWAPI::Broodwar->self())
 	{

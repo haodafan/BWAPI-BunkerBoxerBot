@@ -125,7 +125,7 @@ void BunkerBoxerModule::onFrame()
   command.update();
 
   // Simple scouting mission ==================================================================
-  int scoutTiming = 8; 
+  int scoutTiming = 10; 
 
   //if (Broodwar->self()->supplyUsed() == scoutTiming * 2)
   //  Broodwar->sendText("WE ARE NOW AT TEN SUPPLY");
@@ -143,6 +143,12 @@ void BunkerBoxerModule::onFrame()
 	  std::vector<TilePosition> baseLocation = intel.getAllEnemyStartLocations();
 	  recon.setScoutingMission(baseLocation);
 	  recon.beginScouting(productionManager.conscript());
+
+	  if (baseLocation.size() > 1)
+	  {
+		  // Send two if there are many start locations
+		  recon.beginScouting(productionManager.conscript());
+	  }
   }
 
   if (!recon.isScouting() && recon.hasDesignatedUnits())
@@ -154,13 +160,23 @@ void BunkerBoxerModule::onFrame()
   }
 
   // ==================================== Attack =====================================
-  int marineCountForAttack = 1;
+  int marineCountForAttack = 2;
+
+  if (BWAPI::Broodwar->enemy()->getRace() == BWAPI::Races::Zerg)
+  {
+	  marineCountForAttack = 3;
+  }
+  else if (BWAPI::Broodwar->enemy()->getRace() == BWAPI::Races::Protoss)
+  {
+	  marineCountForAttack = 4;
+  }
+
   if (command.isPassive() && intel.isEnemyScouted() && command.getMarineCount() >= marineCountForAttack)
   {
 	  Broodwar << "THE TIME IS NOW TO COMMENCE THE ATTACK!!!!!!!!!!!!!!";
 
 	  // Add SCVs to our army 
-	  for (int i = 0; i < 5; i++)
+	  for (int i = 0; i < 9; i++)
 		command.addUnit(productionManager.conscript());
 
 	  // Add locations
@@ -170,13 +186,22 @@ void BunkerBoxerModule::onFrame()
 		  Broodwar << "Attack natural location: " << intel.getEnemyNaturalLocation().x << "," << intel.getEnemyNaturalLocation().y;
 		  command.addAssaultLocation(intel.getEnemyNaturalLocation());
 	  }
-	  command.addAssaultLocation(intel.getMainBasePosition(Broodwar->enemy()));
-	  Broodwar << "Attack main location: " << intel.getMainBasePosition(Broodwar->enemy()).x << "," << intel.getMainBasePosition(Broodwar->enemy()).y;
+	  if (intel.getMainBasePosition(Broodwar->enemy()) != BWAPI::Broodwar->self()->getStartLocation())
+	  {
+		  command.addAssaultLocation(intel.getMainBasePosition(Broodwar->enemy()));
+		  Broodwar << "Attack main location: " << intel.getMainBasePosition(Broodwar->enemy()).x << "," << intel.getMainBasePosition(Broodwar->enemy()).y;
 
-	  // Commence Assault
-	  command.assault();
+		  // Commence Assault
+		  command.assault();
+	  }
   }
 
+  if (!command.isPassive() && !command.attackingSCVs())
+  {
+	  // Add more SCVs to our army
+	  for (int i = 0; i < 7; i++)
+		  command.addUnit(productionManager.conscript());
+  }
 }
 
 void BunkerBoxerModule::onSendText(std::string text)
@@ -316,5 +341,10 @@ void BunkerBoxerModule::onUnitComplete(BWAPI::Unit unit)
 		BWAPI::Broodwar->sendText(unit->getType().c_str());
 		//BWAPI::Unit * heap_unit = new Unit(unit); // remember to delete!!!
 		productionManager.addBuilding(unit);
+	}
+
+	if (unit->getType() == BWAPI::UnitTypes::Terran_Bunker)
+	{
+		command.addUnit(unit);
 	}
 }

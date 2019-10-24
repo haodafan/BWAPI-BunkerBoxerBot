@@ -10,7 +10,7 @@ Real-Time Strategy (RTS) is a genre of videogames that can be thought of like Ch
 
 RTSes like Starcraft involve building structures, managing an economy, creating an army, and using that army to destroy the army of your opponent. 
 
-## Breaking down the Game 
+## Breaking down the Game
 
 Starcraft, and many other real-time strategy games, can be thought of as a collection of a dozen or so minigames happening at the same time. This makes it intuitive to divide the AI into different components, each managing its own 'minigame'. 
 
@@ -36,6 +36,22 @@ In Starcraft, this results in several 'minigames':
 
 2. Minimizing worker idle time 
 
+3. Ensuring resources are being spent efficiently, rather than being stockpiled 
+
+4. Choosing prioritizations for resources 
+
+5. Proactively preventing resource "blocking" (for example, building supply depots to increase your maximum army size before your army reaches that size)
+
+### 2. Micro
+
+Micro is short for "micro-management", and refers to the managing of individual or small groups of units (e.g. a single soldier) to make them more efficient. 
+
+An example of professional micro, is [anti-lurker micro](https://www.youtube.com/watch?v=kQtPMLOctBg). Lurkers are a unit which attack in a line, however their attack is not instant. It moves from the lurker to where its target was at the time of attack, damaging things along the way. Thus, if you know the timing of lurker attacks, you can move your unit (in that case, the marine) away at just the right time to dodge it, while other units attack from a different angle. 
+
+### 3. Grand Strategy 
+
+TBD
+
 # Our AI - the Bunker Boxer Bot 
 
 ## Inspiration 
@@ -43,3 +59,18 @@ In Starcraft, this results in several 'minigames':
 SlayerS_BoxeR was one of the first well-known Starcraft pro-gamers. He was a Korean player well known for his aggressive playstyle and flawless micro. 
 
 Famously, he often liked to use the "Bunker rush" strategy against his Zerg opponents. 
+
+## How BunkerBoxeRBot (ideally) plays the Game 
+
+### Grand Strategy 
+
+Our Bot will perform a Bunker Rush. This is an all-in strategy designed to win the game within the first 10 minutes. After building a small army of marines, BunkerBoxer will move out with said marines and a group of SCVs (workers) towards the enemy. Upon reaching the enemy base, an SCV will construct a Bunker, a defensive structure which protects any unit occupying it. The idea is that a weak or greedy opponent will not have built enough soldiers to withstand this attack, and will lose before they get a chance to build a strong economy. 
+
+### Micro 
+
+TBD 
+
+### Macro 
+
+Given that our bot is meant to win (or lose) the game within its early stages, we will not have any kind of complicated multi-base economic management. We need mine only minerals to build SCVs and marines, and we will prioritize marine production once the appropriate marine-producing buildings have been constructed. 
+

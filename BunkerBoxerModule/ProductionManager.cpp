@@ -89,7 +89,7 @@ void ProductionManager::update()
 
 			// Set the item as built 
 			buildOrder.setBuilt(next);
-			BWAPI::Broodwar->sendText("Added structure to save queue");
+			//BWAPI::Broodwar->sendText("Added structure to save queue");
 			BWAPI::Broodwar->sendText(next.unitType.toString().c_str());
 		}
 
@@ -99,12 +99,12 @@ void ProductionManager::update()
 			if (saveList.size() <= 0)
 			{
 				//something is wrong. 
-				BWAPI::Broodwar->sendText("Save list is empty but we are currently saving. Something is wrong.");
+				//BWAPI::Broodwar->sendText("Save list is empty but we are currently saving. Something is wrong.");
 				return;
 			}
 			if (BWAPI::Broodwar->self()->minerals() >= saveList[0].mineralPrice())
 			{
-				BWAPI::Broodwar->sendText("Production Manager Report: We have enough minerals to build saveList item.");
+				//BWAPI::Broodwar->sendText("Production Manager Report: We have enough minerals to build saveList item.");
 
 				currentLowBound = saveList[0].mineralPrice(); // We shouldn't spend too much money while our worker is travelling
 
@@ -136,8 +136,8 @@ void ProductionManager::update()
 		{
 			// If we have 2 production buildings, then that means we must have constructed a Terran Barracks 
 			// Now, we begin pumping out marines 
-			BWAPI::Broodwar->sendText("Production Manager Report: Second production building detected.");
-			BWAPI::Broodwar->sendText("                           Begin Stage 2 Production : Marine focus");
+			//BWAPI::Broodwar->sendText("Production Manager Report: Second production building detected.");
+			//BWAPI::Broodwar->sendText("                           Begin Stage 2 Production : Marine focus");
 			passiveBuildUnit = BWAPI::UnitTypes::Terran_Marine; 
 		}
 	}
@@ -305,11 +305,11 @@ BWAPI::Unit ProductionManager::conscript()
 			if (!(*it)->isConstructing())
 			{
 				const BWAPI::Unit conscriptedWorker = (*it);
-				BWAPI::Broodwar->sendText("Production Manager Report: Worker has been pressed into service!");
+				//BWAPI::Broodwar->sendText("Production Manager Report: Worker has been pressed into service!");
 				allWorkers.erase(it);
 				return conscriptedWorker;
 			}
 		}
 	}
-	BWAPI::Broodwar->sendText("Production Manager Report: No workers available to conscript!");
+	//BWAPI::Broodwar->sendText("Production Manager Report: No workers available to conscript!");
 }

@@ -1,7 +1,5 @@
 ﻿C:\Program Files (x86)\Microsoft Visual Studio\2017\Community\Common7\IDE\VC\VCTargets\Platforms\Win32\PlatformToolsets\v141_xp\Toolset.targets(39,5): warning MSB8051: Support for targeting Windows XP is deprecated and will not be present in future releases of Visual Studio. Please see https://go.microsoft.com/fwlink/?linkid=2023588 for more information.
   BunkerBoxerModule.cpp
-  Common.cpp
-  Dll.cpp
   FieldCommand.cpp
   Intelligence.cpp
   ProductionManager.cpp
@@ -11,11 +9,11 @@ c:\bwapi-sc\bwapi\release440\haodabots\bunkerboxermodule\bunkerboxermodule\intel
 c:\bwapi-sc\bwapi\release440\haodabots\bunkerboxermodule\bunkerboxermodule\intelligence.cpp(163): warning C4018: '<': signed/unsigned mismatch
      Creating library Release\BunkerBoxerModule.lib and object Release\BunkerBoxerModule.exp
   Generating code
-c:\bwapi-sc\bwapi\release440\haodabots\bunkerboxermodule\bunkerboxermodule\intelligence.cpp(160): warning C4715: 'Intelligence::getMainBasePosition': not all control paths return a value
+c:\bwapi-sc\bwapi\release440\haodabots\bunkerboxermodule\bunkerboxermodule\productionmanager.cpp(315): warning C4715: 'ProductionManager::conscript': not all control paths return a value
 c:\bwapi-sc\bwapi\release440\haodabots\bunkerboxermodule\bunkerboxermodule\fieldcommand.cpp(72): warning C4700: uninitialized local variable 'attackEnemy' used
 c:\bwapi-sc\bwapi\release440\haodabots\bunkerboxermodule\bunkerboxermodule\fieldcommand.cpp(374): warning C4700: uninitialized local variable 'attackEnemy' used
-  897 of 8510 functions (10.5%) were compiled, the rest were copied from previous compilation.
-    31 functions were new in current compilation
-    211 functions had inline decision re-evaluated but remain unchanged
+  34 of 8508 functions ( 0.4%) were compiled, the rest were copied from previous compilation.
+    0 functions were new in current compilation
+    76 functions had inline decision re-evaluated but remain unchanged
   Finished generating code
   BunkerBoxerModule.vcxproj -> C:\BWAPI-SC\bwapi\release440\HaodaBots\BunkerBoxerModule\Release\BunkerBoxerModule.dll

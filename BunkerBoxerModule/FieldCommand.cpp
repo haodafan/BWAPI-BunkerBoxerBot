@@ -84,7 +84,7 @@ void FieldCommand::update()
 			{
 				if ((e->getDistance(u) < 32)) // 8 tile positions away
 				{
-					BWAPI::Broodwar->sendText("Enemy detected en route!");
+					////BWAPI::Broodwar->sendText("Enemy detected en route!");
 
 					if (e->getType() == BWAPI::UnitTypes::Protoss_Zealot && needNewBunker && lead)
 					{
@@ -276,7 +276,7 @@ void FieldCommand::update()
 			if (closestEnemyBuilding == nullptr)
 			{
 				// Something is very wrong
-				BWAPI::Broodwar->sendText("NO BUILDING NEARBY ... SOMETHING IS VERY WRONG!!!");
+				////BWAPI::Broodwar->sendText("NO BUILDING NEARBY ... SOMETHING IS VERY WRONG!!!");
 				switchStance(State::Travelling);
 			}
 
@@ -313,7 +313,7 @@ void FieldCommand::update()
 
 				if (distance > 10)
 				{
-					BWAPI::Broodwar->sendText("Cannot build anywhere!");
+					////BWAPI::Broodwar->sendText("Cannot build anywhere!");
 					break;
 				}
 			}
@@ -414,7 +414,7 @@ void FieldCommand::update()
 	{
 		if ((*it)->getDistance(lead) < 60) // 10 tile positions away
 		{
-			BWAPI::Broodwar->sendText("Field Command Report: Reinforcing unit has caught up."); // Debugging
+			////BWAPI::Broodwar->sendText("Field Command Report: Reinforcing unit has caught up."); // Debugging
 			army.emplace_back(*it);
 			if ((*it)->getType() == BWAPI::UnitTypes::Terran_Marine)
 				marines.emplace_back(*it);
@@ -527,7 +527,7 @@ BWAPI::Unit FieldCommand::GetLargestThreatFor(BWAPI::Unit u)
 
 	if (largestThreat == nullptr)
 	{
-		BWAPI::Broodwar->sendText("Could not find largest threat ??????????????");
+		////BWAPI::Broodwar->sendText("Could not find largest threat ??????????????");
 	}
 
 	return largestThreat;
@@ -563,7 +563,7 @@ void FieldCommand::deleteUnitsThatDontExist(std::vector<BWAPI::Unit> v)
 // Adds a unit to the army, and to their unique category
 void FieldCommand::addUnit(BWAPI::Unit u)
 {
-	BWAPI::Broodwar->sendText("Field Command Report: Soldier Added - %s", u->getType().c_str());
+	////BWAPI::Broodwar->sendText("Field Command Report: Soldier Added - %s", u->getType().c_str());
 
 	// BUNKER CODE
 	if (u->getType() == BWAPI::UnitTypes::Terran_Bunker)
@@ -580,7 +580,7 @@ void FieldCommand::addUnit(BWAPI::Unit u)
 		army.emplace_back(u);
 	else
 	{
-		BWAPI::Broodwar->sendText("			Added as reinforcement.");
+		////BWAPI::Broodwar->sendText("			Added as reinforcement.");
 		reinforcements.emplace_back(u);
 	}
 
@@ -601,11 +601,11 @@ void FieldCommand::assault()
 	if (assaultLocations.size() >= 1)
 	{
 		switchStance(State::Travelling);
-		BWAPI::Broodwar->sendText("Field Command : Begin attack!");
+		////BWAPI::Broodwar->sendText("Field Command : Begin attack!");
 	}
 	else
 	{
-		BWAPI::Broodwar->sendText("Field Command Report: Unable to attack, no locations set");
+		////BWAPI::Broodwar->sendText("Field Command Report: Unable to attack, no locations set");
 	}
 }
 
@@ -631,19 +631,19 @@ void FieldCommand::switchStance(FieldCommand::State s)
 
 	if (s == State::Mustering)
 	{
-		BWAPI::Broodwar->sendText("NEW STANCE: MUSTERING");
+		////BWAPI::Broodwar->sendText("NEW STANCE: MUSTERING");
 	}
 	else if (s == State::Aggressive)
 	{
-		BWAPI::Broodwar->sendText("NEW STANCE: AGGRESSIVE");
+		////BWAPI::Broodwar->sendText("NEW STANCE: AGGRESSIVE");
 	}
 	else if (s == State::Travelling)
 	{
-		BWAPI::Broodwar->sendText("NEW STANCE: TRAVELLING");
+		////BWAPI::Broodwar->sendText("NEW STANCE: TRAVELLING");
 	}
 	else if (s == State::BunkerDefense)
 	{
-		BWAPI::Broodwar->sendText("NEW STANCE: BUNKER DEFENSE");
+		////BWAPI::Broodwar->sendText("NEW STANCE: BUNKER DEFENSE");
 	}
 }
 
@@ -676,7 +676,7 @@ void FieldCommand::reassignRole(BWAPI::Unit u, std::vector<BWAPI::Unit> from, st
 
 	if (!found)
 	{
-		BWAPI::Broodwar->sendText("Field Command Error: Unit to be reassigned does not exist!");
+		////BWAPI::Broodwar->sendText("Field Command Error: Unit to be reassigned does not exist!");
 		return;
 	}
 

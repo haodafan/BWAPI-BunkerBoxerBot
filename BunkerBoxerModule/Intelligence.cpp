@@ -112,20 +112,20 @@ void Intelligence::removeEnemyBase(BWAPI::TilePosition tp)
 
 void Intelligence::addEnemy(BWAPI::Unit u)
 {
-	//BWAPI::Broodwar->sendText("Intelligence Report: Enemy unit added to watch list: %s", u->getType().c_str());
+	////BWAPI::Broodwar->sendText("Intelligence Report: Enemy unit added to watch list: %s", u->getType().c_str());
 	knownEnemyUnits.emplace_back(u);
 
 	if (u->getType().isResourceDepot())
 	{
 		if (!isNearStartLocation(u->getTilePosition()))
 		{
-			BWAPI::Broodwar->sendText("Expansion Detected!");
-			//BWAPI::Broodwar->sendText("Distance from start location: %d", u->getTilePosition().getApproxDistance(u->getPlayer()->getStartLocation()));
+			//BWAPI::Broodwar->sendText("Expansion Detected!");
+			////BWAPI::Broodwar->sendText("Distance from start location: %d", u->getTilePosition().getApproxDistance(u->getPlayer()->getStartLocation()));
 			addEnemyBase(u->getTilePosition(), BaseType::Expansion);
 		}
 		else 
 		{
-			BWAPI::Broodwar->sendText("Main Base Detected!");
+			//BWAPI::Broodwar->sendText("Main Base Detected!");
 			addEnemyBase(u->getTilePosition(), BaseType::Main);
 		}
 	}
@@ -133,7 +133,7 @@ void Intelligence::addEnemy(BWAPI::Unit u)
 
 void Intelligence::removeEnemy(BWAPI::Unit u)
 {
-	BWAPI::Broodwar->sendText("Intelligence Report: Enemy unit removed from watch list: %s", u->getType().c_str());
+	//BWAPI::Broodwar->sendText("Intelligence Report: Enemy unit removed from watch list: %s", u->getType().c_str());
 }
 
 

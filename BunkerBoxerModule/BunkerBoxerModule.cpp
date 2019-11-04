@@ -183,13 +183,13 @@ void BunkerBoxerModule::onFrame()
 
 	  if (intel.countEnemyBases() >= 2)
 	  {
-		  Broodwar << "Attack natural location: " << intel.getEnemyNaturalLocation().x << "," << intel.getEnemyNaturalLocation().y;
+		  //Broodwar << "Attack natural location: " << intel.getEnemyNaturalLocation().x << "," << intel.getEnemyNaturalLocation().y;
 		  command.addAssaultLocation(intel.getEnemyNaturalLocation());
 	  }
 	  if (intel.getMainBasePosition(Broodwar->enemy()) != BWAPI::Broodwar->self()->getStartLocation())
 	  {
 		  command.addAssaultLocation(intel.getMainBasePosition(Broodwar->enemy()));
-		  Broodwar << "Attack main location: " << intel.getMainBasePosition(Broodwar->enemy()).x << "," << intel.getMainBasePosition(Broodwar->enemy()).y;
+		  //Broodwar << "Attack main location: " << intel.getMainBasePosition(Broodwar->enemy()).x << "," << intel.getMainBasePosition(Broodwar->enemy()).y;
 
 		  // Commence Assault
 		  command.assault();
@@ -208,7 +208,7 @@ void BunkerBoxerModule::onSendText(std::string text)
 {
 
   // Send the text to the game if it is not being processed.
-  Broodwar->sendText("%s", text.c_str());
+  //Broodwar->sendText("%s", text.c_str());
 
 
   // Make sure to use %s and pass the text as a parameter,
@@ -226,7 +226,7 @@ void BunkerBoxerModule::onPlayerLeft(BWAPI::Player player)
 {
   // Interact verbally with the other players in the game by
   // announcing that the other player has left.
-  Broodwar->sendText("LMAO GET REKT %s!", player->getName().c_str());
+  //Broodwar->sendText("LMAO GET REKT %s!", player->getName().c_str());
 }
 
 void BunkerBoxerModule::onNukeDetect(BWAPI::Position target)
@@ -337,8 +337,8 @@ void BunkerBoxerModule::onUnitComplete(BWAPI::Unit unit)
 
 	if (unit->getType().canProduce() && unit->getType().isBuilding())
 	{
-		BWAPI::Broodwar->sendText("New Production Building Completion Detected.");
-		BWAPI::Broodwar->sendText(unit->getType().c_str());
+		//BWAPI::Broodwar->sendText("New Production Building Completion Detected.");
+		//BWAPI::Broodwar->sendText(unit->getType().c_str());
 		//BWAPI::Unit * heap_unit = new Unit(unit); // remember to delete!!!
 		productionManager.addBuilding(unit);
 	}

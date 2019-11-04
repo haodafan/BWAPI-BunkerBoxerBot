@@ -19,9 +19,9 @@ void Recon::setScoutingMission(std::vector<BWAPI::TilePosition> locations)
 {
 	for (auto loc : locations)
 	{
-		BWAPI::Broodwar->sendText("Recon Report: Scouting Location: %d, %d", loc.x, loc.y);
+		//BWAPI::Broodwar->sendText("Recon Report: Scouting Location: %d, %d", loc.x, loc.y);
 	}
-	BWAPI::Broodwar->sendText("End of scouting locations");
+	//BWAPI::Broodwar->sendText("End of scouting locations");
 	this->scoutLocations = locations;
 }
 void Recon::beginScouting(BWAPI::Unit designatedScout)
@@ -34,7 +34,7 @@ void Recon::beginScouting(BWAPI::Unit designatedScout)
 	}
 	this->designatedScout = designatedScout; 
 	active = true;
-	BWAPI::Broodwar->sendText("Scout mission currently active!");
+	//BWAPI::Broodwar->sendText("Scout mission currently active!");
 }
 BWAPI::Unit Recon::endScouting()
 {
@@ -47,7 +47,7 @@ void Recon::update()
 {
 	if (designatedScout != nullptr && designatedScout->exists() && active && scoutLocations.size() >= 1)
 	{
-		//BWAPI::Broodwar->sendText("RECON UPDATE : SHOULD BE MOVING NAO"); //debugging
+		////BWAPI::Broodwar->sendText("RECON UPDATE : SHOULD BE MOVING NAO"); //debugging
 		if (!designatedScout->move((BWAPI::Position)scoutLocations[0])) // Simple cast can convert in BWAPI
 		{
 			// If the call fails, then print the last error message
@@ -59,14 +59,14 @@ void Recon::update()
 
 		if (scoutLocations[0].getApproxDistance(designatedScout->getTilePosition()) < 4)
 		{
-			BWAPI::Broodwar->sendText("Recon Report: Location has been scouted!");
+			//BWAPI::Broodwar->sendText("Recon Report: Location has been scouted!");
 
 			scoutLocations.erase(begin(scoutLocations));
 		}
 	}
 	else if (scoutLocations.size() == 0)
 	{
-		//BWAPI::Broodwar->sendText("Recon Report: Scouting Mission Completed.");
+		////BWAPI::Broodwar->sendText("Recon Report: Scouting Mission Completed.");
 		//endScouting();
 	}
 	else if (designatedScout == nullptr && active)
@@ -78,7 +78,7 @@ void Recon::update()
 
 bool Recon::isScouting()
 {
-	//BWAPI::Broodwar->sendText("We are currently scouting (active): %b", active);
+	////BWAPI::Broodwar->sendText("We are currently scouting (active): %b", active);
 	return active;
 }
 

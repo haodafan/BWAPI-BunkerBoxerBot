@@ -70,7 +70,7 @@ MetaType StrictBuildOrder::getItemBySupply(int supp)
 	{
 		if (list[i].built == false && list[i].supply <= supp)
 		{
-			//BWAPI::Broodwar->sendText("StrictBuildOrder search success! Current supply, item supply:");
+			////BWAPI::Broodwar->sendText("StrictBuildOrder search success! Current supply, item supply:");
 			//BWAPI::Broodwar->sendText(std::to_string(supp).c_str());
 			//BWAPI::Broodwar->sendText(std::to_string(list[i].supply).c_str());
 			return list[i].metaType;
